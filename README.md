@@ -7,4 +7,4 @@ Limits:
 This program outputs BMP files with following parameters:
 - `OS/2 1.x BITMAPCOREHEADER` header
 - TrueType colors (24 bits per pixel)
-- uncompressed
+- uncompressed (obviously, it's BMP)
