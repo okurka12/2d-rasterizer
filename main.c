@@ -1,4 +1,4 @@
-#include "rasterizer.h"
+#include "bmp.h"
 #include <stdio.h>
 
 
@@ -8,8 +8,8 @@ int main() {
     color_t red = {.red = 255};
     color_t yel = {.red = 255, .green = 255};
     color_t cyan = {.green = 255, .blue = 255};
-    char width = 100;
-    char height = 50;
+    char width = 333;
+    char height = 222;
     
     color_t picture[height * width];
     for (int y = 0; y < height; y++) {

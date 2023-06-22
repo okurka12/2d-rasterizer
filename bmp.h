@@ -1,7 +1,7 @@
 #include <stdint.h>
 
-#ifndef _RASTERIZER_H
-#define _RASTERIZER_H
+#ifndef _BMP_H
+#define _BMP_H
 
 typedef struct {
     uint8_t red;
@@ -23,4 +23,4 @@ int create_bmp(
 
 
 
-#endif
+#endif  // ifndef _BMP_H
