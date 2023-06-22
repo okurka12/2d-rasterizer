@@ -2,6 +2,9 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#define HEADER_SIZE 14
+#define DIB_HEADER_SIZE 12
+
 typedef unsigned char byte;
 
 /* checks if system is little endian */
@@ -13,7 +16,7 @@ uint8_t is_little_endian() {
      * the code up with useless boilerplate */
 }
 
-/* sets appropriate values to 14-long byte array */
+/* sets appropriate values to 14-long byte array `header` */
 void get_file_header(byte * header, uint16_t width, uint16_t height) {
     uint32_t filesize = 14 + 12 + width * height * 3;
     uint32_t offset = 14 + 12;  // where the pixel array starts
@@ -36,7 +39,8 @@ void get_file_header(byte * header, uint16_t width, uint16_t height) {
 }
 
 
-/* sets appropriate values to 12-long byte array (OS/2 1.x BITMAPCOREHEADER) */
+/* sets appropriate values to 12-byte long byte array `header`
+   (OS/2 1.x BITMAPCOREHEADER) */
 void get_dib_header(byte * header, uint16_t width, uint16_t height) {
     uint32_t dib_header_size = 12;
     uint16_t color_planes_no = 1;
@@ -57,20 +61,17 @@ void get_dib_header(byte * header, uint16_t width, uint16_t height) {
 }
 
 
-int create_bmp(
-                    char filename[], 
-                    color_t data[], 
-                    uint16_t width, 
-                    uint16_t height
-) {
+int create_bmp(char filename[], color_t data[], uint16_t width, 
+               uint16_t height) {
+                
     if (!is_little_endian()) {
         fprintf(stderr, "this program cannot run on big-endian systems yet\n");
         return 1;
     }
 
     /* create file header and device independent bitmap header */
-    byte file_header[14];
-    byte dib_header[12];
+    byte file_header[HEADER_SIZE];
+    byte dib_header[DIB_HEADER_SIZE];
     get_file_header(file_header, width, height);
     get_dib_header(dib_header, width, height);
 
@@ -82,12 +83,12 @@ int create_bmp(
     }
 
     /* write file header */
-    for (uint8_t i = 0; i < 14; i++) {
+    for (uint8_t i = 0; i < HEADER_SIZE; i++) {
         fputc(file_header[i], f);
     }
 
     /* write device independent bitmap header */
-    for (uint8_t i = 0; i < 12; i++) {
+    for (uint8_t i = 0; i < DIB_HEADER_SIZE; i++) {
         fputc(dib_header[i], f);
     }
 
