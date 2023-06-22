@@ -2,11 +2,16 @@
 CC = gcc  
 CFLAGS = -std=c99 -Wall -Wextra -pedantic -g #-DNDEBUG
 
-main: bmp.o main.c
-	$(CC) $(CFLAGS) main.c bmp.o -o main
+main.bin: bmp.o main.c
+	$(CC) $(CFLAGS) main.c bmp.o -o $@
 
 bmp.o: bmp.c
 	$(CC) $(CFLAGS) -c bmp.c
 
+.PHONY: clean
 clean:
-	rm *.o main
+	rm *.o *.bin
+
+.PHONY: run
+run: main.bin
+	./main.bin

@@ -1,4 +1,4 @@
 .vscode
 *.bmp
 *.o
-*.elf
+*.bin
