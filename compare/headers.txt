@@ -1,0 +1,29 @@
+/* file header */
+  // B
+  // M
+  // filesize LSB
+  // ..
+  // ..
+  // filesize MSB
+  // reserved
+  // reserved
+  // reserved
+  // reserved
+  // offset LSB
+  // ..
+  // ..
+  // offset MSB
+
+/* dib header */
+  // dib_header_size LSB
+  // ..
+  // ..
+  // dib_header_size MSB
+  // width LSB
+  // width MSB
+  // height LSB
+  // height MSB
+  // number_of_color_planes LSB
+  // number_of_color_planes MSB
+  // bits_per_pixel LSB
+  // bits_per_pixel MSB
