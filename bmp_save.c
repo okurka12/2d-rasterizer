@@ -61,7 +61,7 @@ void get_dib_header(byte * header, uint16_t width, uint16_t height) {
 }
 
 
-int create_bmp(char filename[], color_t data[], uint16_t width, 
+int bmp_save(char filename[], color_t data[], uint16_t width, 
                uint16_t height) {
                 
     if (!is_little_endian()) {
