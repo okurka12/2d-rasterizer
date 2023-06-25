@@ -61,8 +61,7 @@ void get_dib_header(byte * header, uint16_t width, uint16_t height) {
 }
 
 
-int bmp_save(char filename[], color_t data[], uint16_t width, 
-               uint16_t height) {
+int bmp_save(char filename[], image_t *image) {
                 
     if (!is_little_endian()) {
         fprintf(stderr, "this program cannot run on big-endian systems yet\n");
@@ -72,8 +71,8 @@ int bmp_save(char filename[], color_t data[], uint16_t width,
     /* create file header and device independent bitmap header */
     byte file_header[HEADER_SIZE];
     byte dib_header[DIB_HEADER_SIZE];
-    get_file_header(file_header, width, height);
-    get_dib_header(dib_header, width, height);
+    get_file_header(file_header, image->width, image->height);
+    get_dib_header(dib_header, image->width, image->height);
 
     /* open file */
     FILE *f = fopen(filename, "w+");
@@ -93,11 +92,11 @@ int bmp_save(char filename[], color_t data[], uint16_t width,
     }
 
     /* write image data */
-    for (uint16_t y = 0; y < height; y++) {
-        for (uint16_t x = 0; x < width; x++) {
-            fputc(data[width * y + x].blue, f);
-            fputc(data[width * y + x].green, f);
-            fputc(data[width * y + x].red, f);
+    for (uint16_t y = 0; y < image->height; y++) {
+        for (uint16_t x = 0; x < image->width; x++) {
+            fputc(image->data[image->width * y + x].blue, f);
+            fputc(image->data[image->width * y + x].green, f);
+            fputc(image->data[image->width * y + x].red, f);
         }
     }
 
