@@ -1,7 +1,7 @@
 
 CC=gcc
 AR=ar
-CFLAGS=-std=c99 -Wall -Wextra -pedantic -g #-DNDEBUG
+CFLAGS=-std=c11 -Wall -Wextra -pedantic -g #-DNDEBUG
 LDFLAGS=
 
 .PHONY: all
