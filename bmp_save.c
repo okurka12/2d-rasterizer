@@ -5,6 +5,7 @@
 
 #define HEADER_SIZE 14
 #define DIB_HEADER_SIZE 40
+#define ROW_PADDING 4  // align to a multiple of how many bytes
 
 typedef unsigned char byte;
 
@@ -17,11 +18,26 @@ uint8_t is_little_endian() {
      * the code up with useless boilerplate */
 }
 
+/* calculates appropriate padding (align `n` to `align`) */
+uint32_t calc_pad_siz(uint32_t n, uint32_t align) {
+    if (n % align == 0) {
+        return 0;
+    } else {
+        return align - (n % align);
+    }
+}
+
 /* sets appropriate values to 14-long byte array `header` */
 void get_file_header(byte * header, uint16_t width, uint16_t height) {
+
+    /* padding size (alignt to a multiple of 4 bytes) */
+    uint32_t padding_size = height * calc_pad_siz(width * 3, ROW_PADDING);
     
     /* file size */
-    uint32_t filesize = HEADER_SIZE + DIB_HEADER_SIZE + width * height * 3;
+    uint32_t filesize = HEADER_SIZE +
+                        DIB_HEADER_SIZE + 
+                        width * height * 3 +
+                        padding_size;
     
     /* where the pixel array starts */
     uint32_t offset = HEADER_SIZE + DIB_HEADER_SIZE;
@@ -103,12 +119,21 @@ int bmp_save(char filename[], image_t *image) {
     }
 
     /* write image data */
-    for (uint16_t y = 0; y < image->height; y++) {
-        for (uint16_t x = 0; x < image->width; x++) {
+    uint32_t padding_size = calc_pad_siz(image->width * 3, ROW_PADDING);
+    for (uint32_t y = 0; y < image->height; y++) {
+        
+        /* write row */
+        for (uint32_t x = 0; x < image->width; x++) {
             fputc(image->data[image->width * y + x].blue, f);
             fputc(image->data[image->width * y + x].green, f);
             fputc(image->data[image->width * y + x].red, f);
         }
+
+        /* write padding */
+        for (uint32_t x = 0; x < padding_size; x++) {
+            fputc(0, f);
+        }
+
     }
 
     /* close file */
