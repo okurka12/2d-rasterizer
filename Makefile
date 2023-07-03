@@ -10,7 +10,7 @@ BMP_LIB_MODULES= bmp_save.o bmp_image_ctor.o bmp_image_dtor.o
 all: main.bin
 
 # compile main bin 
-main.bin: libbmap.so main.c utils.h
+main.bin: libbmap.so main.c utils.h bmp.h
 	$(CC) $(CFLAGS) -o $@ main.c ./libbmap.so 
 
 # put bmp module into a static library

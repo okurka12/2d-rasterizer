@@ -1,4 +1,5 @@
 #include "bmp.h"
+#include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
@@ -89,6 +90,8 @@ void get_dib_header(byte * header, uint32_t width, uint32_t height) {
 
 
 int bmp_save(char filename[], image_t *image) {
+
+    static_assert(sizeof(color_t) == 3);
                 
     if (!is_little_endian()) {
         fprintf(stderr, "this program cannot run on big-endian systems yet\n");
@@ -109,25 +112,17 @@ int bmp_save(char filename[], image_t *image) {
     }
 
     /* write file header */
-    for (uint8_t i = 0; i < HEADER_SIZE; i++) {
-        fputc(file_header[i], f);
-    }
+    fwrite(file_header, 1, HEADER_SIZE, f);
 
     /* write device independent bitmap header */
-    for (uint8_t i = 0; i < DIB_HEADER_SIZE; i++) {
-        fputc(dib_header[i], f);
-    }
+    fwrite(dib_header, 1, DIB_HEADER_SIZE, f);
 
     /* write image data */
     uint32_t padding_size = calc_pad_siz(image->width * 3, ROW_PADDING);
     for (uint32_t y = 0; y < image->height; y++) {
         
         /* write row */
-        for (uint32_t x = 0; x < image->width; x++) {
-            fputc(image->data[image->width * y + x].blue, f);
-            fputc(image->data[image->width * y + x].green, f);
-            fputc(image->data[image->width * y + x].red, f);
-        }
+        fwrite(image->data + image->width * y, 3, image->width, f);
 
         /* write padding */
         for (uint32_t x = 0; x < padding_size; x++) {
