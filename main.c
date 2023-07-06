@@ -22,10 +22,10 @@ int main() {
         for (unsigned int y = 0; y < image->height; y++) {
         for (unsigned int x = 0; x < image->width; x++) {
             if (x < image->width / 2 || y < image->height / 2) {
-                image->data[image->width * y + x] = yel;
+                pixel(x, y, image) = yel;
             }
             else {
-                image->data[image->width * y + x] = red;
+                pixel(x, y, image) = red;
             }
             // image->data[image->width * y + x] = red;
         }
@@ -35,6 +35,7 @@ int main() {
     timer_start(ukladani);
 
     int return_value = bmp_save("obrazecek_prvni.bmp", image); 
+    bmp_image_dtor(image);
     if (return_value) {
         fprintf(stderr, "nepodarilo se udelat obrazek, abort\n");
         return 1;

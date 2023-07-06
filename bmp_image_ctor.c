@@ -14,7 +14,11 @@ image_t *bmp_image_ctor(uint32_t width, uint32_t height) {
     /* initialize struct */
     output->width = width;
     output->height = height;
-    output->data = malloc(width*height*sizeof(color_t));  // allocate
+
+    /* allocate */
+    output->data = calloc(
+        1, width*height*sizeof(color_t) + height*image_padding(width)
+    );
 
     /* null check */
     if (output->data == NULL) {
