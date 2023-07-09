@@ -38,5 +38,14 @@ clean:
 	rm -f *.o *.bin *.so *.a *.bmp
 
 .PHONY: run
-run: main.bin
+run: run_wsl
+
+# Why does this even work? 
+# WSL's PATH contains also the contents of Windows' PATH
+# This means when you try to execute a Windows executable from WSL terminal,
+# it is actually run in Windows. Windows applications start normally, CLI 
+# applications' input/output is routed to the WSL shell
+.PHONY: run_wsl
+run_wsl: main.bin
 	./main.bin
+	cmd.exe /c start obrazecek_prvni.bmp
