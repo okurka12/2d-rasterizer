@@ -1,7 +1,7 @@
 
 CC=gcc
 AR=ar
-CFLAGS=-std=c11 -Wall -Wextra -pedantic -g #-DNDEBUG
+CFLAGS=-std=c11 -Wall -Wextra -pedantic -g -O0 #-DNDEBUG
 LDFLAGS=
 
 BMP_LIB_MODULES= bmp_save.o bmp_image_ctor.o bmp_image_dtor.o
