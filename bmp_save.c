@@ -1,4 +1,5 @@
 #include "bmp.h"
+#include "utils.h"
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -101,12 +102,15 @@ int bmp_save(char filename[], image_t *image) {
     }
 
     /* write file header */
+    logf("writing file header to %ld", ftell(f));
     fwrite(file_header, 1, HEADER_SIZE, f);
 
     /* write device independent bitmap header */
+    logf("writing DIB header to %ld", ftell(f));
     fwrite(dib_header, 1, DIB_HEADER_SIZE, f);
 
     /* write image data */
+    logf("writing image array to %ld", ftell(f));
     size_t bitmap_size = 
         image->width * image->height * sizeof(color_t) + // bitmap
         image->height * image_padding(image->width);  // padding
