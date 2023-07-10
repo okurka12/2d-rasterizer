@@ -39,12 +39,12 @@ typedef struct {
     calc_pad_siz((width) * sizeof(color_t), ROW_PADDING)
 
 /* a row width (`image_t img`) in bytes including the padding */
-# define row_width(img) \
+#define row_width(img) \
     (img->width * sizeof(color_t) + image_padding(img->width))
 
 /* returns a color_t l-value of a pixel at `x`, `y` in `img` (image_t) */
 #define pixel(x, y, img) \
-    *((color_t *)(img->data + y * row_width(img) + x * sizeof(color_t)))
+    *((color_t *)(img->data + (y) * row_width(img) + (x) * sizeof(color_t)))
 
 /** 
  * creates specified bmp file with provided image struct
