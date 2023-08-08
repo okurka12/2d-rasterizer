@@ -10,7 +10,7 @@ cmp.py
     compares two hexdumps of .bmp files outputted by myhex.py
     assumes dib header size is 12
     
-    if one file is larger, the excess of the other one is not outputted
+    if one file is smaller, the excess of the other one is not outputted
 
 run.sh
     runs the above
