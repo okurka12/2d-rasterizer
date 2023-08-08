@@ -9,6 +9,9 @@
 /* byte */
 typedef unsigned char byte;
 
+/* type for image width/height and coordinates */
+typedef uint32_t coord_t;
+
 /* struct for a single pixel */
 typedef struct {
     uint8_t blue;
@@ -20,10 +23,10 @@ typedef struct {
 typedef struct {
 
     /* image width */
-    uint32_t width;
+    coord_t width;
 
     /* image height */
-    uint32_t height;
+    coord_t height;
 
     /* the bitmap itself (row-padded) */
     byte *data;
@@ -53,7 +56,7 @@ typedef struct {
 int bmp_save(char filename[], image_t *image);
 
 /* initializes image on heap, returns a pointer to it or NULL on failure */
-image_t *bmp_image_ctor(uint32_t width, uint32_t height);
+image_t *bmp_image_ctor(coord_t width, coord_t height);
 
 /* frees the image */
 void bmp_image_dtor(image_t *image);

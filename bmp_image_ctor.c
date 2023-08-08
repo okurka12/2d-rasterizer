@@ -1,7 +1,7 @@
 #include "bmp.h"
 #include <stdlib.h>
 
-image_t *bmp_image_ctor(uint32_t width, uint32_t height) {
+image_t *bmp_image_ctor(coord_t width, coord_t height) {
     
     /* allocate room for the struct itself */
     image_t *output = malloc(sizeof(image_t));
