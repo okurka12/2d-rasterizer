@@ -43,8 +43,9 @@ clean:
 	rm -f *.o *.bin *.so *.a *.bmp
 
 .PHONY: run
-run: run_python
+run: run_python_wsl
 
+# Runs the demo (main.c) and opens the image
 # Why does this even work? 
 # WSL's PATH contains also the contents of Windows' PATH
 # This means when you try to execute a Windows executable from WSL terminal,
@@ -55,6 +56,12 @@ run_wsl: main.bin
 	./main.bin
 	cmd.exe /c start obrazecek_prvni.bmp
 
+# runs the python wrapper demo
 .PHONY: run_python
-run_python:
+run_python: libbmap.so
 	$(PY) ./python/libbmap.py
+
+# opens the image from the python wrapper demo
+.PHONY: run_python_wsl
+run_python_wsl: run_python
+	cmd.exe /c start obrazecek_druhy.bmp
