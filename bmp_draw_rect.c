@@ -1,6 +1,6 @@
 #include "bmp.h"
 
-void bmp_draw_square(point_t a, point_t b, color_t col, image_t *image) {
+void bmp_draw_rect(point_t a, point_t b, color_t col, image_t *image) {
 
     /* variables for bounds */
     coord_t start_x = a.x;

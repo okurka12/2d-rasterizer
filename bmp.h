@@ -67,8 +67,8 @@ image_t *bmp_image_ctor(coord_t width, coord_t height);
 /* frees the image */
 void bmp_image_dtor(image_t *image);
 
-/* draws a square from point `a` to point `b` (point_t)
+/* draws a rectangle from point `a` to point `b` (point_t)
    note: the points may not even be in the image */
-void bmp_draw_square(point_t a, point_t b, color_t col, image_t *image);
+void bmp_draw_rect(point_t a, point_t b, color_t col, image_t *image);
 
 #endif  // ifndef _BMP_H

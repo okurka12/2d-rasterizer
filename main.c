@@ -11,7 +11,7 @@ const color_t cyan = {.green = 255, .blue = 255};
 
 /* fills a square of `n` by `n` at `x`, `y` with color `col`*/
 void fill_sq(uint32_t x, uint32_t y, uint32_t n, color_t col, image_t *img) {
-    bmp_draw_square(
+    bmp_draw_rect(
         (point_t){.x = x, .y = y}, 
         (point_t){.x = x + n, .y = y + n},
         col,

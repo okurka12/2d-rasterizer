@@ -1,10 +1,11 @@
 
 CC=gcc
 AR=ar
+PY=python3
 CFLAGS=-std=c11 -Wall -Wextra -pedantic -g #-DNDEBUG
 LDFLAGS=
 
-BMP_LIB_MODULES= bmp_save.o bmp_image_ctor.o bmp_image_dtor.o bmp_draw_square.o
+BMP_LIB_MODULES= bmp_save.o bmp_image_ctor.o bmp_image_dtor.o bmp_draw_rect.o
 
 .PHONY: all
 all: main.bin
@@ -34,7 +35,7 @@ bmp_image_dtor.o: bmp_image_dtor.c
 	$(CC) $(CFLAGS) -fPIC -c $<
 
 # compile bmp_draw_square
-bmp_draw_square.o: bmp_draw_square.c
+bmp_draw_rect.o: bmp_draw_rect.c
 	$(CC) $(CFLAGS) -fPIC -c $<
 
 .PHONY: clean
@@ -42,7 +43,7 @@ clean:
 	rm -f *.o *.bin *.so *.a *.bmp
 
 .PHONY: run
-run: run_wsl
+run: run_python
 
 # Why does this even work? 
 # WSL's PATH contains also the contents of Windows' PATH
@@ -53,3 +54,7 @@ run: run_wsl
 run_wsl: main.bin
 	./main.bin
 	cmd.exe /c start obrazecek_prvni.bmp
+
+.PHONY: run_python
+run_python:
+	$(PY) ./python/libbmap.py
