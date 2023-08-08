@@ -1,10 +1,10 @@
 
 CC=gcc
 AR=ar
-CFLAGS=-std=c11 -Wall -Wextra -pedantic -g -O0 #-DNDEBUG
+CFLAGS=-std=c11 -Wall -Wextra -pedantic -g #-DNDEBUG
 LDFLAGS=
 
-BMP_LIB_MODULES= bmp_save.o bmp_image_ctor.o bmp_image_dtor.o
+BMP_LIB_MODULES= bmp_save.o bmp_image_ctor.o bmp_image_dtor.o bmp_draw_square.o
 
 .PHONY: all
 all: main.bin
@@ -33,6 +33,10 @@ bmp_image_ctor.o: bmp_image_ctor.c
 bmp_image_dtor.o: bmp_image_dtor.c
 	$(CC) $(CFLAGS) -fPIC -c $<
 
+# compile bmp_draw_square
+bmp_draw_square.o: bmp_draw_square.c
+	$(CC) $(CFLAGS) -fPIC -c $<
+
 .PHONY: clean
 clean:
 	rm -f *.o *.bin *.so *.a *.bmp
@@ -43,8 +47,8 @@ run: run_wsl
 # Why does this even work? 
 # WSL's PATH contains also the contents of Windows' PATH
 # This means when you try to execute a Windows executable from WSL terminal,
-# it is actually run in Windows. Windows applications start normally, CLI 
-# applications' input/output is routed to the WSL shell
+# it is actually run in Windows. Windowed applications start normally, CLI 
+# applications' input/output is tied to the WSL shell
 .PHONY: run_wsl
 run_wsl: main.bin
 	./main.bin

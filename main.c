@@ -11,13 +11,12 @@ const color_t cyan = {.green = 255, .blue = 255};
 
 /* fills a square of `n` by `n` at `x`, `y` with color `col`*/
 void fill_sq(uint32_t x, uint32_t y, uint32_t n, color_t col, image_t *img) {
-    log("fill_sq zavolan");
-    for (uint32_t i = 0; i < n; i++) {
-        for (uint32_t j = 0; j < n; j++) {
-            logf("nastavuji pixel (%u, %u) na col", x + j, y + i);
-            pixel(x + j, y + i, img) = col;
-        }
-    }
+    bmp_draw_square(
+        (point_t){.x = x, .y = y}, 
+        (point_t){.x = x + n, .y = y + n},
+        col,
+        img
+    );
 }
 
 /* generates image */
