@@ -49,7 +49,7 @@ int main() {
     timer_start(ukladani);
 
     /* save image into file */
-    int return_value = bmp_save("obrazecek_prvni.bmp", image); 
+    int return_value = bmp_save("example.bmp", image); 
     
     /* free image */
     bmp_image_dtor(image);

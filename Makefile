@@ -8,11 +8,11 @@ LDFLAGS=
 BMP_LIB_MODULES= bmp_save.o bmp_image_ctor.o bmp_image_dtor.o bmp_draw_rect.o
 
 .PHONY: all
-all: main.bin
+all: example.bin
 
-# compile main bin 
-main.bin: libbmap.so main.c utils.h bmp.h
-	$(CC) $(CFLAGS) -o $@ main.c ./libbmap.so 
+# compile example.bin 
+example.bin: libbmap.so example.c utils.h bmp.h
+	$(CC) $(CFLAGS) -o $@ example.c ./libbmap.so 
 
 # put bmp module into a static library
 libbmap.a: $(BMP_LIB_MODULES)
@@ -45,16 +45,16 @@ clean:
 .PHONY: run
 run: run_python_wsl
 
-# Runs the demo (main.c) and opens the image
+# Runs the demo (example.c) and opens the image
 # Why does this even work? 
 # WSL's PATH contains also the contents of Windows' PATH
 # This means when you try to execute a Windows executable from WSL terminal,
 # it is actually run in Windows. Windowed applications start normally, CLI 
 # applications' input/output is tied to the WSL shell
 .PHONY: run_wsl
-run_wsl: main.bin
-	./main.bin
-	cmd.exe /c start obrazecek_prvni.bmp
+run_wsl: example.bin
+	./example.bin
+	cmd.exe /c start example.bmp
 
 # runs the python wrapper demo
 .PHONY: run_python
