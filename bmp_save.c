@@ -8,6 +8,11 @@
 #define HEADER_SIZE 14
 #define DIB_HEADER_SIZE 40
 
+/* macro to be used in bmp_save, checks if `a` is equal to `b` 
+  (the expected return value of a library function). 
+  if it's not, call perror with `msg` and return 1. */
+#define check(a, b, msg) if ((a) != (b)) { perror(msg); return 1; }
+
 /* checks if system is little endian */
 uint8_t is_little_endian() {
     unsigned int n = 1;
@@ -101,23 +106,34 @@ int bmp_save(char filename[], image_t *image) {
         return 1;
     }
 
+    /* fwrite return value */
+    size_t fwr = 0;
+
     /* write file header */
     logf("writing file header to %ld", ftell(f));
-    fwrite(file_header, 1, HEADER_SIZE, f);
+    fwr = fwrite(file_header, 1, HEADER_SIZE, f);
+    check(fwr, HEADER_SIZE, "fwrite");
 
     /* write device independent bitmap header */
     logf("writing DIB header to %ld", ftell(f));
-    fwrite(dib_header, 1, DIB_HEADER_SIZE, f);
+    fwr = fwrite(dib_header, 1, DIB_HEADER_SIZE, f);
+    check(fwr, DIB_HEADER_SIZE, "fwrite");
 
-    /* write image data */
-    logf("writing image array to %ld", ftell(f));
+    /* calculate the bitmap size */
     size_t bitmap_size = 
         image->width * image->height * sizeof(color_t) + // bitmap
         image->height * image_padding(image->width);  // padding
-    fwrite(image->data, 1, bitmap_size, f);
+    
+    /* write image data */
+    logf("writing image array to %ld", ftell(f));
+    fwr = fwrite(image->data, 1, bitmap_size, f);
+    check(fwr, bitmap_size, "fwrite");
 
     /* close file */
-    fclose(f);
+    if (fclose(f) != 0) {
+        perror("fclose");
+        return 1;
+    }
 
     return 0;   
 }
