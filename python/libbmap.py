@@ -1,8 +1,12 @@
 # This is a python wrapper for my bmp library
 
 import ctypes as ctp
+import platform as plt
 
-SO_FILE = "./libbmap.so"  # path to the C dynamic library
+
+# path to the C dynamic library (leave empty string to select predefined path)
+SO_FILE = ""
+
 DEBUG = 1  # Do we want debug print statements?
 
 # logging
@@ -11,6 +15,20 @@ if DEBUG:
 else:
     def log(*args, **kwargs) -> None:
         pass
+
+if SO_FILE == "":
+    if plt.system() == "Linux":
+        so_file_path = "./libbmap.so"
+    elif plt.system() == "Windows":
+        so_file_path = ".\\libbmap.dll"
+    else:
+        raise RuntimeError(
+            "Don't know where to look for the library on this system\n"
+            f"Perhaps you can set the SO_FILE variable in {__file__}"
+        )
+
+else:
+    so_file_path = SO_FILE
 
 
 class Color:
@@ -52,7 +70,7 @@ class C_point_t(ctp.Structure):
 
 
 # the C library API
-libbmap_c = ctp.CDLL(SO_FILE)
+libbmap_c = ctp.CDLL(so_file_path)
 libbmap_c.bmp_image_ctor.argtypes = ctp.c_uint32, ctp.c_uint32
 libbmap_c.bmp_image_ctor.restype  = ctp.c_void_p
 libbmap_c.bmp_image_dtor.argtypes = ctp.c_void_p,
