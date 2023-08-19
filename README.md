@@ -37,7 +37,7 @@ While you could use any compiler to build this library (perhaps MinGW), I chose 
 
 Here are the versions I have, although, sice this build process is very simple, it should not matter if you have older/newer.
 ```
-Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x86
+Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
 Microsoft (R) Incremental Linker Version 14.35.32215.0
 Microsoft (R) Library Manager Version 14.35.32215.0
 ```
@@ -52,6 +52,10 @@ Then, in the VS Developer command prompt, you can run these commands:
 *Note: A `.lib` file is also created alongside the `.dll` dynamic library. However, this file is not a static library, rather a so-called *import library*. This is what you then link your program against (you still need the `.dll`, the code is in it).*
 
 *Note 2: When executing the `build` command, the command prompt actually executes `build.bat`.*
+
+*Note 3: To build 64-bit binaries, you need to open `x64 Native Tools Comand Prompt for VS 2022`.*
+*Like stated [here](https://learn.microsoft.com/en-us/cpp/build/how-to-enable-a-64-bit-visual-cpp-toolset-on-the-command-line?view=msvc-170), the MSVC tools build 32-bit applications by default:*
+> *Visual Studio includes C++ compilers, linkers, and other tools that you can use to create platform-specific versions of your apps that can run on 32-bit, 64-bit, or ARM-based Windows operating systems. Other optional Visual Studio workloads let you use C++ tools to target other platforms, such as iOS, Android, and Linux. The default build architecture uses 32-bit, x86-hosted tools to build 32-bit, x86-native Windows code. However, you probably have a 64-bit computer. When Visual Studio is installed on a 64-bit Windows operating system, additional developer command prompt shortcuts for the 64-bit, x64-hosted native and cross compilers are available. You can take advantage of the processor and memory space available to 64-bit code by using the 64-bit, x64-hosted toolset when you build code for x86, x64, or ARM processors.*
 
 ## Example image
 The `example.c` file is compiled to `example.bin` (perhaps `example.exe`). When `example.bin` is run, it creates `example.bmp`, an example image.
