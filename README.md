@@ -44,3 +44,18 @@ In the near future, I want to:
 - Implement more drawing functions
 - Work on the python wrapper (add missing null checks, make it more pythonic, etc.)
 - Automate + document the build process on OS Windows
+
+## Implementing new functions to the library
+To add a new function, one must:
+- implement it in a spearate `.c` file
+- write a recipe for it in `Makefile`
+  - that will most probably go like this:
+  ```
+  # compile my_module
+  my_module.o: my_module.c
+  	$(CC) $(CFLAGS) -fPIC -c $<
+  ```
+- in `Makefile`, add it to the `BMP_LIB_MODULES` variable
+- in `build.bat`, add it to the `modules` variable
+
+That way, upon finishing implementation, the function is exported to the library.
