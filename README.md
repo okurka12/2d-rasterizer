@@ -81,5 +81,21 @@ To add a new function, one must:
 
 That way, upon finishing implementation, the function is exported to the library.
 
+# The Python wrapper
+The library can be used in python. Here's how to do it (*Note: it's the same example as when you run `libbmap.py` directly*):
+```py
+from python import libbmap as bmp
+
+img = bmp.Image(100, 200)
+img.draw_rectangle(bmp.Point(50, 50), bmp.Point(70, 80), bmp.Color(255, 0, 0))
+img.save_bmp("imported_lib_example.bmp")
+```
+- the `import` statement imports `libbmap.py` as a module from the `python` folder 
+  - to do it like this, you should place your `.py` file into the root directory
+  - this is possible because the folder containt `__init__.py`
+- all you need is in the `libbmap.py` file, however you import it
+- by default, the wrapper expects you to have the shared library file (`.so`/`.dll`) in the same folder whence you run the `.py` file
+- you can alter this behavior by changing the `SO_FILE` variable at the start of `libbmap.py`
+
 # See also
 - [Jan Marjanovic's bmp inspector python script](https://gist.github.com/j-marjanovic/5319384ad6606d6fd6d6) - helped me find problems in my generated files
