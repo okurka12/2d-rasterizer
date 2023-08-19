@@ -45,16 +45,36 @@
 @ for %%m in (%modules%) do %CC% %CFLAGS% /c %%m.c
 
 :: .\build.bat static
-if "%1" equ "static" (
+@ if "%1" equ "static" ( call :build_static ) else ( call :build_dynamic )
+
+:: here, I decided to put the commands into separate functions, so that
+:: the if-statement itself is not echoed, 
+:: but the command that creates the library is called
+
+:: FUNCTIONS
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: this is to skip direct execution of this block (so that the 
+:: functions are not executed directly, only by being called)
+@ goto :functions_end
+
+:build_static
 
     :: create a static library (.lib)
     lib /out:%LIB_FILENAME% %objmodules%
 
-) else (
+    @ exit /b 0
+
+:build_dynamic
 
     :: create a dynamic library (.dll)
     link /DLL /out:%DLL_FILENAME% %expmodules% %objmodules%
-)
+
+    @ exit /b 0
+
+:: end of the function block, from here, the code is again executed directly
+:functions_end
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :: compile example.c and link 
 %CC% %CFLAGS% /Fe:example.exe example.c %LIB_FILENAME%
