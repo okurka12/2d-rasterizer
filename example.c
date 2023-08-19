@@ -26,7 +26,7 @@ void generate_image(image_t *img) {
     fill_sq(300, 200, 10, red, img);
 }
 
-int main() {
+int main(void) {
 
     /* timer thingies */
     timer_start(celkovy_cas);

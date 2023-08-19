@@ -14,7 +14,7 @@
 #define check(a, b, msg) if ((a) != (b)) { perror(msg); return 1; }
 
 /* checks if system is little endian */
-uint8_t is_little_endian() {
+uint8_t is_little_endian(void) {
     unsigned int n = 1;
     return *(char *)&n == 1;
     /** it's worth mentioning here that making it compliant with big-endian
@@ -23,7 +23,7 @@ uint8_t is_little_endian() {
 }
 
 /* sets appropriate values to 14-long byte array `header` */
-void get_file_header(byte * header, uint16_t width, uint16_t height) {
+void get_file_header(byte * header, coord_t width, coord_t height) {
 
     /* padding size (alignt to a multiple of 4 bytes) */
     uint32_t padding_size = 
@@ -86,7 +86,7 @@ void get_dib_header(byte * header, uint32_t width, uint32_t height) {
 
 int bmp_save(char filename[], image_t *image) {
 
-    static_assert(sizeof(color_t) == 3);
+    static_assert(sizeof(color_t) == 3, "Wrong size of color_t");
                 
     if (!is_little_endian()) {
         fprintf(stderr, "this program cannot run on big-endian systems yet\n");

@@ -5,3 +5,8 @@
 *.so
 trash
 todo.txt
+*.obj
+*.dll
+*.exe
+*.exp
+*.lib
