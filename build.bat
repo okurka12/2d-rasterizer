@@ -72,9 +72,16 @@
 
     @ exit /b 0
 
+:run_example
+    .\example.exe
+    start example.bmp
+    @ exit /b 0
+
 :: end of the function block, from here, the code is again executed directly
 :functions_end
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :: compile example.c and link 
 %CC% %CFLAGS% /Fe:example.exe example.c %LIB_FILENAME%
+
+@ if "%1" equ "run" ( call :run_example )
