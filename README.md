@@ -33,16 +33,25 @@ I developed the library using `gcc 13.1.0`, but really any version should work. 
 Know that `make run` is for development only - I use a very specific environment that might not work for you
 
 ### On Windows
-While you could use any compiler to build this library (perhaps MinGW), I chose MSVC. Therefore, to use the provided build script, you need to have `Microsoft Visual Studio Build Tools` (when installing, select `Desktop development with C++` workload). then, in the VS Developer command prompt, you can run these commands:
+While you could use any compiler to build this library (perhaps MinGW), I chose MSVC. Therefore, to use the provided build script, you need to have `Microsoft Visual Studio Build Tools` (when installing, select `Desktop development with C++` workload).
+
+Here are the versions I have, although, sice this build process is very simple, it should not matter if you have older/newer.
+```
+Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x86
+Microsoft (R) Incremental Linker Version 14.35.32215.0
+Microsoft (R) Library Manager Version 14.35.32215.0
+```
+
+Then, in the VS Developer command prompt, you can run these commands:
 
 - `build` to build the dynamic library (`.dll`) and `example.exe`
 - `build static` to build the static library (`.lib`) and `example.exe`
 - `build clean` to remove all binaries (sou you can re-build from scratch)
 - `build run` to build the dynamic library + build and run `example.exe`
 
-Note: A `.lib` file is also created alongside the `.dll` dynamic library. However, this file is not a static library, rather a so-called *import library*. This is what you then link your program against (you still need the `.dll`, the code is in it).
+*Note: A `.lib` file is also created alongside the `.dll` dynamic library. However, this file is not a static library, rather a so-called *import library*. This is what you then link your program against (you still need the `.dll`, the code is in it).*
 
-Note 2: When executing the `build` command, the command prompt actually executes `build.bat`.
+*Note 2: When executing the `build` command, the command prompt actually executes `build.bat`.*
 
 ## Example image
 The `example.c` file is compiled to `example.bin` (perhaps `example.exe`). When `example.bin` is run, it creates `example.bmp`, an example image.
