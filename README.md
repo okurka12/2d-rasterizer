@@ -80,3 +80,6 @@ To add a new function, one must:
 - in `build.bat`, add it to the `modules` variable
 
 That way, upon finishing implementation, the function is exported to the library.
+
+# See also
+- [Jan Marjanovic's bmp inspector python script](https://gist.github.com/j-marjanovic/5319384ad6606d6fd6d6) - helped me find problems in my generated files
