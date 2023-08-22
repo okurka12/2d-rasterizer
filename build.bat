@@ -16,9 +16,14 @@
 :: is a static library or an import library for a dynamic library
 :: beware: a .lib file can be combination of both
 
-
+:: the C compiler
 @set CC=cl
+
+:: c compiler flags: uncomment one
+::@set CFLAGS=/Wall /EHsc /MD /fsanitize=address /Zi
 @set CFLAGS=/Wall /EHsc /MD
+
+:: filenames
 @set LIB_FILENAME=libbmap.lib
 @set DLL_FILENAME=libbmap.dll
 
@@ -27,7 +32,7 @@
 
 :: .\build.bat clean
 @ if "%1" equ "clean" (
-    del *.o *.bin *.so *.a *.bmp *.obj *.exe *.dll *.exp *.lib
+    del *.o *.bin *.so *.a *.bmp *.obj *.exe *.dll *.exp *.lib *.pdb
     exit /b
 )
 

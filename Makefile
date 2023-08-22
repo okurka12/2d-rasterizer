@@ -40,7 +40,7 @@ bmp_draw_rect.o: bmp_draw_rect.c
 
 .PHONY: clean
 clean:
-	rm -f *.o *.bin *.so *.a *.bmp *.obj *.exe *.dll *.exp *.lib
+	rm -f *.o *.bin *.so *.a *.bmp *.obj *.exe *.dll *.exp *.lib *.pdb
 
 .PHONY: run
 run: run_python_wsl
