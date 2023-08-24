@@ -38,7 +38,10 @@ fprintf(stderr, tprfx "%s: %.3g s\n", msg, (double)(clock()-id)/CLOCKS_PER_SEC)
 #else  // ifndef NDEBUG
 
 #define log(msg) {}
-#define logv(msg, ...) {}
+#define logf(msg, ...) {}
+#define timer_start(id) {}
+#define timer_restart(id) {}
+#define timer_end(id, msg) {}
 
 
 #endif  // ifndef NDEBUG

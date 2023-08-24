@@ -21,6 +21,7 @@
 
 :: c compiler flags: uncomment one
 ::@set CFLAGS=/Wall /EHsc /MD /fsanitize=address /Zi
+::@set CFLAGS=/Wall /EHsc /MD /DNDEBUG
 @set CFLAGS=/Wall /EHsc /MD
 
 :: filenames
