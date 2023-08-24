@@ -20,6 +20,12 @@ image_t *bmp_image_ctor(coord_t width, coord_t height) {
         1, width*height*sizeof(color_t) + height*image_padding(width)
     );
 
+    /**
+     * why calloc?
+     * that's so that the padding bytes are always zero - they're never
+     * directly accessed
+    */
+
     /* null check */
     if (output->data == NULL) {
         free(output);
