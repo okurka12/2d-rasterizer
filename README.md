@@ -68,6 +68,7 @@ In the near future, I want to:
 
 ## Implementing new functions to the library
 To add a new function, one must:
+- declare it in `bmp.h`
 - implement it in a spearate `.c` file
 - write a recipe for it in `Makefile`
   - that will most probably go like this:
