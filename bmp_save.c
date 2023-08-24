@@ -100,7 +100,7 @@ int bmp_save(char filename[], image_t *image) {
     get_dib_header(dib_header, image->width, image->height);
 
     /* open file */
-    FILE *f = fopen(filename, "w+");
+    FILE *f = fopen(filename, "w+b");
     if (f == NULL) {
         fprintf(stderr, "could not create/rewrite %s\n", filename);
         return 1;
