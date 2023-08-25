@@ -5,7 +5,8 @@ PY=python3
 CFLAGS=-std=c11 -Wall -Wextra -pedantic -g #-DNDEBUG
 LDFLAGS=
 
-BMP_LIB_MODULES= bmp_save.o bmp_image_ctor.o bmp_image_dtor.o bmp_draw_rect.o
+BMP_LIB_MODULES= bmp_save.o bmp_image_ctor.o bmp_image_dtor.o bmp_draw_rect.o \
+ bmp_draw_circ.o
 
 .PHONY: all
 all: example.bin
@@ -38,12 +39,16 @@ bmp_image_dtor.o: bmp_image_dtor.c
 bmp_draw_rect.o: bmp_draw_rect.c
 	$(CC) $(CFLAGS) -fPIC -c $<
 
+# compile bmp_draw_circ
+bmp_draw_circ.o: bmp_draw_circ.c
+	$(CC) $(CFLAGS) -fPIC -c $<
+
 .PHONY: clean
 clean:
 	rm -f *.o *.bin *.so *.a *.bmp *.obj *.exe *.dll *.exp *.lib *.pdb
 
 .PHONY: run
-run: run_python_wsl
+run: run_wsl
 
 # Runs the demo (example.c) and opens the image
 # Why does this even work? 
@@ -64,4 +69,4 @@ run_python: libbmap.so
 # opens the image from the python wrapper demo
 .PHONY: run_python_wsl
 run_python_wsl: run_python
-	cmd.exe /c start obrazecek_druhy.bmp
+	cmd.exe /c start python_example.bmp

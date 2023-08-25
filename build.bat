@@ -24,12 +24,15 @@
 ::@set CFLAGS=/Wall /EHsc /MD /DNDEBUG
 @set CFLAGS=/Wall /EHsc /MD
 
+:: set this to /DEBUG if you want the DLL to contain debug info
+@set LDFLAGS=/DEBUG
+
 :: filenames
 @set LIB_FILENAME=libbmap.lib
 @set DLL_FILENAME=libbmap.dll
 
 :: modules
-@set modules=bmp_draw_rect bmp_image_ctor bmp_image_dtor bmp_save
+@set modules=bmp_draw_rect bmp_image_ctor bmp_image_dtor bmp_save bmp_draw_circ
 
 :: .\build.bat clean
 @ if "%1" equ "clean" (
@@ -74,7 +77,7 @@
 :build_dynamic
 
     :: create a dynamic library (.dll)
-    link /DLL /out:%DLL_FILENAME% %expmodules% %objmodules%
+    link /DLL %LDFLAGS% /out:%DLL_FILENAME% %expmodules% %objmodules%
 
     @ exit /b 0
 

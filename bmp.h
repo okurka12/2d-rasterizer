@@ -71,4 +71,7 @@ void bmp_image_dtor(image_t *image);
    note: the points may not even be in the image */
 void bmp_draw_rect(point_t a, point_t b, color_t col, image_t *image);
 
+/* draws a circle centered in `x`, `y` with radius `r` */
+void bmp_draw_circ(coord_t x, coord_t y, coord_t r, color_t col, image_t *img);
+
 #endif  // ifndef _BMP_H
