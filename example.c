@@ -2,28 +2,25 @@
 #include "utils.h"
 #include <stdio.h>
 
-#define WIDTH 400
-#define HEIGHT 300
+#define WIDTH 1000
+#define HEIGHT 1000
 
 const color_t red = {.red = 255};
 const color_t yel = {.red = 255, .green = 255};
 const color_t cyan = {.green = 255, .blue = 255};
-
-/* fills a square of `n` by `n` at `x`, `y` with color `col`*/
-void fill_sq(uint32_t x, uint32_t y, uint32_t n, color_t col, image_t *img) {
-    bmp_draw_rect(
-        (point_t){.x = x, .y = y}, 
-        (point_t){.x = x + n, .y = y + n},
-        col,
-        img
-    );
-}
+const color_t white = { .red=255, .green = 255, .blue = 255};
 
 /* generates image */
 void generate_image(image_t *img) {
-    fill_sq(10, 10, 10, red, img);
-    fill_sq(90, 5, 10, red, img);
-    fill_sq(300, 200, 10, red, img);
+    
+    bmp_draw_circ(500, 500, 400, white, img);
+    
+    bmp_draw_rect(
+        (point_t){.x = 10, .y = 10}, 
+        (point_t){.x = 50, .y = 50}, 
+        yel, 
+        img
+    );
 }
 
 int main(void) {
