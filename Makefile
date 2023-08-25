@@ -45,7 +45,7 @@ bmp_draw_circ.o: bmp_draw_circ.c
 
 .PHONY: clean
 clean:
-	rm -f *.o *.bin *.so *.a *.bmp *.obj *.exe *.dll *.exp *.lib *.pdb
+	rm -f *.o *.bin *.so *.a *.bmp *.obj *.exe *.dll *.exp *.lib *.pdb *.ilk
 
 .PHONY: run
 run: run_wsl

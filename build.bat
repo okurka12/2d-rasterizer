@@ -36,7 +36,7 @@
 
 :: .\build.bat clean
 @ if "%1" equ "clean" (
-    del *.o *.bin *.so *.a *.bmp *.obj *.exe *.dll *.exp *.lib *.pdb
+    del *.o *.bin *.so *.a *.bmp *.obj *.exe *.dll *.exp *.lib *.pdb *.ilk
     exit /b
 )
 
