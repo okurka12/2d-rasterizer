@@ -47,6 +47,13 @@
 #include "bmp.h"
 #include "utils.h"
 
+/**
+ * comment this out if you want perfectly 1-pixel-wide circles 
+ * this causes filled circles (circles of greater width) to not be filled 
+ * perfectly
+*/
+#define CONTINUOUS_CIRCLE
+
 /* returns true if a circle is in the image bounds */
 static inline bool is_in_bounds(coord_t x, coord_t y, coord_t r, 
     image_t *img) {
@@ -128,8 +135,17 @@ static inline void draw_blank_circle(point_t ct, coord_t r, color_t col,
         /* draw pixels in all octants */
         if (in_bounds) {
             draw_8_pixels(x, y, ct.x, ct.y, col, img);
+
+            #ifdef CONTINUOUS_CIRCLE
+            draw_8_pixels(x, y - 1, ct.x, ct.y, col, img);
+            #endif  // #ifdef CONTINUOUS_CIRCLE
+
         } else {
             draw_8_pixels_bound(x, y, ct.x, ct.y, col, img);
+
+            #ifdef CONTINUOUS_CIRCLE
+            draw_8_pixels_bound(x, y - 1, ct.x, ct.y, col, img);
+            #endif  // #ifdef CONTINUOUS_CIRCLE
         }
 
         /* update the predictor */
