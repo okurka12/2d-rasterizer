@@ -2,7 +2,7 @@
 CC=gcc
 AR=ar
 PY=python3
-CFLAGS=-std=c11 -Wall -Wextra -pedantic -g #-DNDEBUG
+CFLAGS=-std=c11 -Wall -Wextra -pedantic -g #-fsanitize=address -DNDEBUG
 LDFLAGS=
 
 BMP_LIB_MODULES= bmp_save.o bmp_image_ctor.o bmp_image_dtor.o bmp_draw_rect.o \
