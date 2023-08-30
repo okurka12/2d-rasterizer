@@ -36,9 +36,13 @@
 
 :: .\build.bat clean
 @ if "%1" equ "clean" (
-    del *.o *.bin *.so *.a *.bmp *.obj *.exe *.dll *.exp *.lib *.pdb *.ilk
-    exit /b
+    @ goto :do_clean
 )
+goto :dont_clean
+:do_clean
+    del *.o *.bin *.so *.a *.bmp *.obj *.exe *.dll *.exp *.lib *.pdb *.ilk
+    @exit /b
+:dont_clean
 
 :: create variable `modules` but with .obj extension
 @setlocal EnableDelayedExpansion
