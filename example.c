@@ -38,8 +38,8 @@ void generate_image(image_t *img) {
 int main(void) {
 
     /* timer thingies */
-    timer_start(celkovy_cas);
-    timer_start(generovani);
+    timer_start(time_total);
+    timer_start(time_generation);
     
     /* initialize empty image */
     image_t *image = bmp_image_ctor(WIDTH, HEIGHT);
@@ -54,8 +54,8 @@ int main(void) {
     generate_image(image);
 
     /* timer thingies */
-    timer_end(generovani, "generovani obrazku");
-    timer_start(ukladani);
+    timer_end(time_generation, "image generation");
+    timer_start(time_saving);
 
     /* save image into file */
     int return_value = bmp_save("example.bmp", image); 
@@ -65,15 +65,15 @@ int main(void) {
 
     /* check if saving into file was successful */
     if (return_value) {
-        fprintf(stderr, "nepodarilo se udelat obrazek, abort\n");
+        fprintf(stderr, "Image couldn't be saved, abort\n");
         return 1;
     } else {
-        printf("obrazek uspesne vytvoren\n");
+        printf("Image successfully generated and saved.\n");
     }
 
     /* timer thingies */
-    timer_end(ukladani, "ukladani");
-    timer_end(celkovy_cas, "celkovy cas");
+    timer_end(time_saving, "image saving");
+    timer_end(time_total, "total CPU time");
 
     return 0;
 }
