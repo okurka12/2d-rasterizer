@@ -47,6 +47,17 @@
 #include "bmp.h"
 #include "utils.h"
 
+/* returns true if a circle is in the image bounds */
+static inline bool is_in_bounds(coord_t x, coord_t y, coord_t r, 
+    image_t *img) {
+        bool in_bounds = 1;
+        if (x + r > img->width - 1) in_bounds = 0;
+        if (y + r > img->height - 1) in_bounds = 0;
+        if (x < r) in_bounds = 0;
+        if (y < r) in_bounds = 0;
+        return in_bounds;
+    }
+
 /**
  * draws 8 pixels located at `x`, `y` symmetrically around the center of the 
  * circle `x_mid`, `y_mid` with color `col` to image `img`
@@ -74,31 +85,87 @@ static inline void draw_8_pixels(
     pixel(y_mid - y, x_mid - x, img) = col;
 }
 
-void bmp_draw_circ(coord_t x, coord_t y, coord_t r, color_t col, image_t *img) {
+/* draws one pixel, bound checks, if it's out of bounds, draws nothing */
+static inline void px_bound(coord_t x, coord_t y, color_t col, image_t *img) {
+    if (x > img->width - 1) return;
+    if (y > img->height - 1) return;
+    pixel(x, y, img) = col;
+}
+
+/* draws pixels in all octants but performs a bound check for every write */
+static inline void draw_8_pixels_bound(
+    coord_t x,
+    coord_t y,
+    coord_t x_mid,
+    coord_t y_mid,
+    color_t col,
+    image_t *img
+) {
+    px_bound(x_mid + x, y_mid + y, col, img);
+    px_bound(x_mid + x, y_mid - y, col, img);
+    px_bound(x_mid - x, y_mid + y, col, img);
+    px_bound(x_mid - x, y_mid - y, col, img);
+    px_bound(y_mid + y, x_mid + x, col, img);
+    px_bound(y_mid + y, x_mid - x, col, img);
+    px_bound(y_mid - y, x_mid + x, col, img);
+    px_bound(y_mid - y, x_mid - x, col, img);
+}
+
+static inline void draw_blank_circle(point_t ct, coord_t r, color_t col, 
+    bool in_bounds, image_t *img) {
+
 
     /* starting point for the iteration */
-    coord_t xi = 0;
-    coord_t yi = r;
+    coord_t x = 0;
+    coord_t y = r;
 
     /* initial value of the predictor (see algorithm description) */
     int64_t p = 1 - (int64_t)r;
 
     /* iterate from 90 degrees down to 45 degrees, where x = y */
-    while (xi < yi) {
+    while (x < y) {
 
         /* draw pixels in all octants */
-        draw_8_pixels(xi, yi, x, y, col, img);
+        if (in_bounds) {
+            draw_8_pixels(x, y, ct.x, ct.y, col, img);
+        } else {
+            draw_8_pixels_bound(x, y, ct.x, ct.y, col, img);
+        }
 
         /* update the predictor */
         if (p < 0) {
-            p += 2 * xi + 3;
+            p += 2 * x + 3;
         } else {
-            p += 2 * xi - 2 * (int64_t)yi + 5;
-            yi--;
+            p += 2 * x - 2 * (int64_t)y + 5;
+            y--;
         }
 
         /* increment x */
-        xi++;
+        x++;
+    }
+}
+
+void bmp_draw_circ(point_t ct, coord_t r, coord_t w, color_t col, 
+    image_t *img) {
+
+    /* is the entire circle in bounds? */
+    signed int in_bounds = is_in_bounds(ct.x, ct.y, r, img);
+
+    /* report if it's not */
+    if (!in_bounds) {
+        logf("Circle ct=(%u, %u) r=%u is out of bounds of img:%p", 
+                 ct.x, ct.y, r, (void *)img);
+    }
+
+    /* is the width smaller than the radius? */
+    coord_t r_less = r;
+    if (w > r) {
+        logf("Circle width %u larger than it's radius %u", w, r);
+    }
+
+    while (r_less > r - w) {
+        draw_blank_circle(ct, r_less, col, in_bounds, img);
+        r_less--;
     }
 
 }

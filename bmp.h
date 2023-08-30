@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdbool.h>
 
 #ifndef _BMP_H
 #define _BMP_H
@@ -71,7 +72,9 @@ void bmp_image_dtor(image_t *image);
    note: the points may not even be in the image */
 void bmp_draw_rect(point_t a, point_t b, color_t col, image_t *image);
 
-/* draws a circle centered in `x`, `y` with radius `r` */
-void bmp_draw_circ(coord_t x, coord_t y, coord_t r, color_t col, image_t *img);
+/* draws a circle centered in `ct` with outer radius `r` and width `w`, 
+   colored `col` to image `img` */
+void bmp_draw_circ(point_t ct, coord_t r, coord_t w, color_t col, 
+    image_t *img);
 
 #endif  // ifndef _BMP_H
