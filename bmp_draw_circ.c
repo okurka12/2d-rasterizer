@@ -123,7 +123,7 @@ static inline void draw_blank_circle(point_t ct, coord_t r, color_t col,
     int64_t p = 1 - (int64_t)r;
 
     /* iterate from 90 degrees down to 45 degrees, where x = y */
-    while (x < y) {
+    while (x <= y) {
 
         /* draw pixels in all octants */
         if (in_bounds) {
@@ -133,7 +133,7 @@ static inline void draw_blank_circle(point_t ct, coord_t r, color_t col,
         }
 
         /* update the predictor */
-        if (p < 0) {
+        if (p <= 0) {
             p += 2 * x + 3;
         } else {
             p += 2 * x - 2 * (int64_t)y + 5;
