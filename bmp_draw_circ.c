@@ -79,10 +79,10 @@ static inline void draw_8_pixels(
     pixel(x_mid + x, y_mid - y, img) = col;
     pixel(x_mid - x, y_mid + y, img) = col;
     pixel(x_mid - x, y_mid - y, img) = col;
-    pixel(y_mid + y, x_mid + x, img) = col;
-    pixel(y_mid + y, x_mid - x, img) = col;
-    pixel(y_mid - y, x_mid + x, img) = col;
-    pixel(y_mid - y, x_mid - x, img) = col;
+    pixel(x_mid + y, y_mid + x, img) = col;
+    pixel(x_mid + y, y_mid - x, img) = col;
+    pixel(x_mid - y, y_mid + x, img) = col;
+    pixel(x_mid - y, y_mid - x, img) = col;
 }
 
 /* draws one pixel, bound checks, if it's out of bounds, draws nothing */
@@ -105,10 +105,10 @@ static inline void draw_8_pixels_bound(
     px_bound(x_mid + x, y_mid - y, col, img);
     px_bound(x_mid - x, y_mid + y, col, img);
     px_bound(x_mid - x, y_mid - y, col, img);
-    px_bound(y_mid + y, x_mid + x, col, img);
-    px_bound(y_mid + y, x_mid - x, col, img);
-    px_bound(y_mid - y, x_mid + x, col, img);
-    px_bound(y_mid - y, x_mid - x, col, img);
+    px_bound(x_mid + y, y_mid + x, col, img);
+    px_bound(x_mid + y, y_mid - x, col, img);
+    px_bound(x_mid - y, y_mid + x, col, img);
+    px_bound(x_mid - y, y_mid - x, col, img);
 }
 
 static inline void draw_blank_circle(point_t ct, coord_t r, color_t col, 
