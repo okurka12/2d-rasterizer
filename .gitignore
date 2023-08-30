@@ -11,3 +11,4 @@ todo.txt
 *.exp
 *.lib
 *.pdb
+*.ilk
