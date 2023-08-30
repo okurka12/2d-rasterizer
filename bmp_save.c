@@ -87,6 +87,10 @@ void get_dib_header(byte * header, uint32_t width, uint32_t height) {
 int bmp_save(char filename[], image_t *image) {
 
     static_assert(sizeof(color_t) == 3, "Wrong size of color_t");
+
+    /* inform on stdout */
+    printf("Saving '%s'... ", filename);
+    fflush(stdout);
                 
     if (!is_little_endian()) {
         fprintf(stderr, "this program cannot run on big-endian systems yet\n");
@@ -134,6 +138,9 @@ int bmp_save(char filename[], image_t *image) {
         perror("fclose");
         return 1;
     }
+
+    /* inform on stdout */
+    printf("done\n");
 
     return 0;   
 }
