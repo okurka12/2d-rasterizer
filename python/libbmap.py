@@ -82,6 +82,13 @@ libbmap_c.bmp_draw_rect.argtypes = (
 )
 libbmap_c.bmp_save.argtypes = ctp.c_char_p, ctp.c_void_p
 libbmap_c.bmp_save.restype = ctp.c_int
+libbmap_c.bmp_draw_circ.argtypes = (
+    C_point_t,
+    ctp.c_uint32,
+    ctp.c_uint32,
+    C_color_t,
+    ctp.c_void_p
+)
 
 class Image:
     def __init__(self, x: int, y: int, color: Color = COLORS["black"]) -> None:
@@ -114,6 +121,19 @@ class Image:
             self.image_p
         )
 
+    def draw_circle(self, ct: Point, r: int, w: int, col: Color):
+        """ Draws a circle centered in `ct` of radius `r` and width `w`, 
+            colored `col` """
+        log(f"drawing a circle ct=({ct.x, ct.y}), {r=}, {w=}, to "
+            f"image at {hex(self.image_p)}")
+        libbmap_c.bmp_draw_circ(
+            C_point_t(ct.x, ct.y),
+            r,
+            w,
+            C_color_t(col.blue, col.green, col.red),
+            self.image_p
+        )
+
     def save_bmp(self, filename: str) -> None:
         """ Saves the image as a .bmp file """
         log(f"saving \'{filename}\'")
@@ -131,6 +151,7 @@ def main() -> None:
     """ This is a demo usage of the Image, Point and Color classes """
     a = Image(100, 200)
     a.draw_rectangle(Point(50, 50), Point(70, 80), Color(255, 0, 0))
+    a.draw_circle(Point(50, 150), 40, 10, Color(255, 255, 0))
     a.save_bmp("python_example.bmp")
 
 
