@@ -45,4 +45,8 @@ fprintf(stderr, tprfx "%s: %.3g s\n", msg, (double)(clock()-id)/CLOCKS_PER_SEC)
 
 
 #endif  // ifndef NDEBUG
+
+/* absolute value */
+#define abs(x) (((x) >= 0) ? (x) : (-(x)))
+
 #endif  // ifndef _U_T_I_L_S_H_
