@@ -6,7 +6,7 @@ CFLAGS=-std=c11 -Wall -Wextra -pedantic -g #-fsanitize=address -DNDEBUG
 LDFLAGS=
 
 BMP_LIB_MODULES= bmp_save.o bmp_image_ctor.o bmp_image_dtor.o bmp_draw_rect.o \
- bmp_draw_circ.o
+ bmp_draw_circ.o bmp_draw_line.o
 
 .PHONY: all
 all: example.bin
@@ -41,6 +41,10 @@ bmp_draw_rect.o: bmp_draw_rect.c
 
 # compile bmp_draw_circ
 bmp_draw_circ.o: bmp_draw_circ.c
+	$(CC) $(CFLAGS) -fPIC -c $<
+
+ # compile bmp_draw_line
+bmp_draw_line.o: bmp_draw_line.c
 	$(CC) $(CFLAGS) -fPIC -c $<
 
 .PHONY: clean

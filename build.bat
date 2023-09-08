@@ -33,6 +33,7 @@
 
 :: modules
 @set modules=bmp_draw_rect bmp_image_ctor bmp_image_dtor bmp_save bmp_draw_circ
+@set modules=%modules% bmp_draw_line
 
 :: .\build.bat clean
 @ if "%1" equ "clean" (

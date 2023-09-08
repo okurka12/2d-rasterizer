@@ -77,4 +77,8 @@ void bmp_draw_rect(point_t a, point_t b, color_t col, image_t *image);
 void bmp_draw_circ(point_t ct, coord_t r, coord_t w, color_t col, 
     image_t *img);
 
+/* draws a line from point `a` to point `b` colored `col` 
+   that is `t` thick to `img` */
+void bmp_draw_line(point_t a, point_t b, color_t col, coord_t t, image_t *img);
+
 #endif  // ifndef _BMP_H

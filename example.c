@@ -33,6 +33,8 @@ void generate_image(image_t *img) {
     /* small blue rectangle in the lower-left */
     bmp_draw_rect((point_t){.x = 10, .y = 10}, 
                   (point_t){.x = 50, .y = 50}, blu, img);
+                
+    bmp_draw_line((point_t){ .x = 0, .y = 0}, (point_t){ .x = 99, .y = 999 }, red, 1, img);
 }
 
 int main(void) {
