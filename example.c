@@ -33,8 +33,26 @@ void generate_image(image_t *img) {
     /* small blue rectangle in the lower-left */
     bmp_draw_rect((point_t){.x = 10, .y = 10}, 
                   (point_t){.x = 50, .y = 50}, blu, img);
-                
+
+    /* left pair of lines */
+    log("left pair of lines");         
     bmp_draw_line((point_t){ .x = 0, .y = 0}, (point_t){ .x = 99, .y = 999 }, red, 1, img);
+    bmp_draw_line((point_t){ .x = 99, .y = 0}, (point_t){ .x = 0, .y = 999 }, yel, 1, img);
+
+    /* top pair of lines */
+    log("top pair of lines");         
+    bmp_draw_line((point_t){ .x = 0, .y = 999}, (point_t){ .x = 999, .y = 900 }, red, 1, img);
+    bmp_draw_line((point_t){ .x = 0, .y = 900}, (point_t){ .x = 999, .y = 999 }, yel, 1, img);
+    
+    /* bottom pair of lines */
+    log("bottom pair of lines");         
+    bmp_draw_line((point_t){ .x = 999, .y = 0}, (point_t){ .x = 0, .y = 99 }, blu, 1, img);
+    bmp_draw_line((point_t){ .x = 999, .y = 99}, (point_t){ .x = 0, .y = 0 }, grn, 1, img);
+
+    /* right pair of lines */
+    log("right pair of lines");         
+    bmp_draw_line((point_t){ .x = 999, .y = 0}, (point_t){ .x = 0, .y = 99 }, blu, 1, img);
+    bmp_draw_line((point_t){ .x = 999, .y = 99}, (point_t){ .x = 0, .y = 0 }, grn, 1, img);
 }
 
 int main(void) {
