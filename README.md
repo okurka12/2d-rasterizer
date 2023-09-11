@@ -29,9 +29,14 @@ Whats the benefit of this?
 ### On GNU/Linux systems:
 I developed the library using `gcc 13.1.0`, but really any version should work. Also I used `GNU Make 4.3`.
 
-- `make` to compile everything, static and dynamic versions of the library and `example.bin`
-- `make libbmap.a` to compile the static library (`.a`)
-- `make libbmap.so` to compile the dynamic library (`.so`)
+- `make` to compile everything:
+  - `libbmap.a` - static version of the library 
+  - `libbmap.so` - dynamic version of the library 
+  - `example.bin` (it will be linked against the `.so` dynamic library)
+- `make libbmap.a` to compile the static library only
+- `make libbmap.so` to compile the dynamic library only
+- `make example_static.bin` to compile all-static version of `example.bin`
+  - this puts the necessary parts of C standard library into the executable (not recommended)
 - `make clean` to remove all binaries (so you can re-start the build process froms scratch)
 
 Know that `make run` is for development only - I use a very specific environment that might not work for you
@@ -48,8 +53,8 @@ Microsoft (R) Library Manager Version 14.35.32215.0
 
 Then, in the VS Developer command prompt, you can run these commands:
 
-- `build` to build the dynamic library (`.dll`) and `example.exe`
-- `build static` to build the static library (`.lib`) and `example.exe`
+- `build` to build the dynamic library (`.dll`) and `example.exe` linked against it
+- `build static` to build the static library (`.lib`) and `example.exe` linked against it
 - `build clean` to remove all binaries (sou you can re-build from scratch)
 - `build run` to build the dynamic library + build and run `example.exe`
 

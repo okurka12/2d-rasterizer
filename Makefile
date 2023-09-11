@@ -11,6 +11,10 @@ BMP_LIB_MODULES= bmp_save.o bmp_image_ctor.o bmp_image_dtor.o bmp_draw_rect.o \
 .PHONY: all
 all: example.bin
 
+# compile example.bin (static executable)
+example_static.bin: example.c libbmap.a
+	gcc -static $(CFLAGS) -o $@ $^
+
 # compile example.bin 
 example.bin: libbmap.so example.c utils.h bmp.h
 	$(CC) $(CFLAGS) -o $@ example.c ./libbmap.so 
