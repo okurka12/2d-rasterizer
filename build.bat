@@ -20,9 +20,10 @@
 @set CC=cl
 
 :: c compiler flags: uncomment one
-::@set CFLAGS=/Wall /EHsc /MD /fsanitize=address /Zi
-::@set CFLAGS=/Wall /EHsc /MD /DNDEBUG
-@set CFLAGS=/Wall /EHsc /MD
+:: note: the /MT flag builds against the static MSVCR library
+::@set CFLAGS=/Wall /EHsc /fsanitize=address /Zi
+::@set CFLAGS=/Wall /EHsc /DNDEBUG
+@set CFLAGS=/Wall /EHsc
 
 :: set this to /DEBUG if you want the DLL to contain debug info
 @set LDFLAGS=/DEBUG
@@ -95,7 +96,7 @@ goto :dont_clean
 :functions_end
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-:: compile example.c and link 
+:: compile example.c and link against libbmap.lib (can be static or dynamic)
 %CC% %CFLAGS% /Fe:example.exe example.c %LIB_FILENAME%
 
 @ if "%1" equ "run" ( call :run_example )
