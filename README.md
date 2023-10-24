@@ -4,11 +4,15 @@ This is one of my first successful C projects. A C library that construts an ima
 ## Story behind 2d-rasterizer
 Initially, a long time ago, I made module that would take an array of pixels and save it as a `.bmp` file. 
 
-Then, I restructured it to be a library. Both a static library (`.a`) and a dynamic library (`.so`/`.dll`).
+Then, I restructured it to be a library. Both a static library (`.a`) and a dynamic library (`.so`).
 
 Then, I made the thing more useful, better, faster. (See **features**)
 
-After I completed `bmp_draw_rect`, a function that can actually draw to the image, I wrote a python wrapper for the library.
+I completed `bmp_draw_rect`, a function that can actually draw to the image.
+
+After that, I automated the build process to build `.dll` library in OS Windows using MSVC compiler. 
+
+Then I could write a python wrapper for the library that works on both Windows and Linux, so I did that.
 
 ## Features
 
