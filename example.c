@@ -16,9 +16,9 @@ const color_t white = { .red=255, .green = 255, .blue = 255};
 void generate_image(image_t *img) {
 
     coord_t circle_width = 10;
-    
+
     /* red rectangle under the big yellow circle*/
-    bmp_draw_rect((point_t){ .x = 175, .y = 175}, 
+    bmp_draw_rect((point_t){ .x = 175, .y = 175},
                   (point_t){ .x = 350, .y = 350}, red, img);
 
     /* big yellow circle in the middle */
@@ -29,28 +29,28 @@ void generate_image(image_t *img) {
 
     /* filled white circle in the upper-left */
     bmp_draw_circ((point_t){ .x = 150, .y = 850}, 80, 80, white, img);
-    
+
     /* small blue rectangle in the lower-left */
-    bmp_draw_rect((point_t){.x = 10, .y = 10}, 
+    bmp_draw_rect((point_t){.x = 10, .y = 10},
                   (point_t){.x = 50, .y = 50}, blu, img);
 
     /* left pair of lines */
-    log("left pair of lines");         
+    log("left pair of lines");
     bmp_draw_line((point_t){ .x = 0, .y = 0}, (point_t){ .x = 99, .y = 999 }, red, 1, img);
     bmp_draw_line((point_t){ .x = 99, .y = 0}, (point_t){ .x = 0, .y = 999 }, yel, 1, img);
 
     /* top pair of lines */
-    log("top pair of lines");         
+    log("top pair of lines");
     bmp_draw_line((point_t){ .x = 0, .y = 999}, (point_t){ .x = 999, .y = 900 }, red, 1, img);
     bmp_draw_line((point_t){ .x = 0, .y = 900}, (point_t){ .x = 999, .y = 999 }, yel, 1, img);
-    
+
     /* bottom pair of lines */
-    log("bottom pair of lines");         
+    log("bottom pair of lines");
     bmp_draw_line((point_t){ .x = 999, .y = 0}, (point_t){ .x = 0, .y = 99 }, blu, 1, img);
     bmp_draw_line((point_t){ .x = 999, .y = 99}, (point_t){ .x = 0, .y = 0 }, grn, 1, img);
 
     /* right pair of lines */
-    log("right pair of lines");         
+    log("right pair of lines");
     bmp_draw_line((point_t){ .x = 999, .y = 0}, (point_t){ .x = 0, .y = 99 }, blu, 1, img);
     bmp_draw_line((point_t){ .x = 999, .y = 99}, (point_t){ .x = 0, .y = 0 }, grn, 1, img);
 }
@@ -60,7 +60,7 @@ int main(void) {
     /* timer thingies */
     timer_start(time_total);
     timer_start(time_generation);
-    
+
     /* initialize empty image */
     image_t *image = bmp_image_ctor(WIDTH, HEIGHT);
 
@@ -78,8 +78,8 @@ int main(void) {
     timer_start(time_saving);
 
     /* save image into file */
-    int return_value = bmp_save("example.bmp", image); 
-    
+    int return_value = bmp_save("example.bmp", image);
+
     /* free image */
     bmp_image_dtor(image);
 
