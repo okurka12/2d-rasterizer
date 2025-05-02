@@ -19,7 +19,7 @@ void bmp_draw_line(point_t a, point_t b, color_t col, coord_t t, image_t *img) {
 
     int64_t dx = (int64_t)b.x - a.x;
     int64_t dy = (int64_t)b.y - a.y;
-    logf("dx=%lld dy=%lld", dx, dy);
+    logf("dx=%ld dy=%ld", dx, dy);
 
     point_t start;
     point_t end;
@@ -28,7 +28,7 @@ void bmp_draw_line(point_t a, point_t b, color_t col, coord_t t, image_t *img) {
 
         /* iterate by y */
         /*--------------------------------------------------------------------*/
-        
+
 
         /* go from a to b or from b to a? */
         if (b.y < a.y) {
@@ -60,7 +60,7 @@ void bmp_draw_line(point_t a, point_t b, color_t col, coord_t t, image_t *img) {
 
         /* iterate by x */
         /*--------------------------------------------------------------------*/
-        
+
         /* go from a to b or from b to a? */
         if (b.x < a.x) {
             start = b;
