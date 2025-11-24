@@ -9,15 +9,19 @@ BMP_LIB_MODULES= bmp_save.o bmp_image_ctor.o bmp_image_dtor.o bmp_draw_rect.o \
  bmp_draw_circ.o bmp_draw_line.o
 
 .PHONY: all
-all: example.bin
+all: example.bin example-noise.bin
 
 # compile example.bin (static executable)
 example_static.bin: example.c libbmap.a
 	gcc -static $(CFLAGS) -o $@ $^
 
-# compile example.bin 
+# compile example.bin
 example.bin: libbmap.so example.c utils.h bmp.h
-	$(CC) $(CFLAGS) -o $@ example.c ./libbmap.so 
+	$(CC) $(CFLAGS) -o $@ example.c ./libbmap.so
+
+# compile example-noise.bin
+example-noise.bin: libbmap.so example-noise.c utils.h bmp.h
+	$(CC) $(CFLAGS) -o $@ example-noise.c ./libbmap.so
 
 # put bmp module into a static library
 libbmap.a: $(BMP_LIB_MODULES)
@@ -59,10 +63,10 @@ clean:
 run: run_wsl
 
 # Runs the demo (example.c) and opens the image
-# Why does this even work? 
+# Why does this even work?
 # WSL's PATH contains also the contents of Windows' PATH
 # This means when you try to execute a Windows executable from WSL terminal,
-# it is actually run in Windows. Windowed applications start normally, CLI 
+# it is actually run in Windows. Windowed applications start normally, CLI
 # applications' input/output is tied to the WSL shell
 .PHONY: run_wsl
 run_wsl: example.bin
